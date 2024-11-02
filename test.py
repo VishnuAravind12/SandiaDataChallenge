@@ -43,7 +43,30 @@ def returnAllFiles(path, word, languages, trans, num):
             filesToReturn.append(file)
     return filesToReturn
 
-#def languagesSpoken(span,fren,german,other):
+def languagesSpoken(path, span,fren,german,other):
+    listOfPeople = []
+    MetaDataFile = open(path + "metadata.csv", "r")
+    for line in MetaDataFile:
+        if line[0] == "p":
+            continue
+        else:
+            filteredLine = line[:-1]
+            data = filteredLine.split(",")
+            goodPerson = True
+            if (len(span) != 0 and span.count(data[1]) == 0):
+                goodPerson = False
+            if (len(fren) != 0 and fren.count(data[2]) == 0):
+                goodPerson = False
+            if (len(german) != 0 and german.count(data[3]) == 0):
+                goodPerson = False
+            if (len(other) != 0 and other.count(data[4]) == 0):
+                goodPerson = False
+
+            if(goodPerson):
+                listOfPeople.append(data[0])
+
+    return listOfPeople
+
 
 
 # Get the list of all files and directories
@@ -51,16 +74,11 @@ path = "C://Users//alber//Documents//School//Clubs//Data Challenge//EEG_Measurem
 path2 =  "C://Users//alber//Documents//School//Clubs//Data Challenge//"
 
 
-# MetaDataFile = open(path2 + "metadata.csv", "r")
-# for line in MetaDataFile:
-#     if line[0] == "p":
-#         continue
-#     else:
-#         if(isSpanish(line)):
-#             spanishSpeakers.append
+#filesToTest = returnAllFiles(path, ["shoe"], ["english-spanish"], [], ["1","2","3","4"])
 
-filesToTest = returnAllFiles(path, ["shoe"], ["english-spanish"], [], ["1","2","3","4"])
+peopleToTest = languagesSpoken(path2, ["0"],["0"],["0"],["0"])
+
 
 # prints all files
-for file in filesToTest:
+for file in peopleToTest:
     print(file + "\n")
